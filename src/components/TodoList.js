@@ -14,6 +14,7 @@ function TodoList() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');
     const [editingTodoId, setEditingTodoId] = useState(null);
+    const [deleteTodoId, setDeleteTodoId] = useState(null);
 
     // Modal
     const openModal = (type) => { 
@@ -29,6 +30,8 @@ function TodoList() {
             handleAddTodo();
         } else if (modalType === 'edit') {
             handleEditTodo();
+        } else if (modalType === 'delete') {
+            handleDeleteTodo();
         }
     }
 
@@ -75,9 +78,11 @@ function TodoList() {
     
     // delete
     const handleDeleteTodo = (id) => {
-        setTodos(todos.filter((todo) => todo.id !== id));
+        setTodos(todos.filter((todo) => todo.id !== deleteTodoId));
+        setDeleteTodoId(null);
         closeModal();
-    }
+        console.log(id);
+    };
 
 
     return (
@@ -117,7 +122,7 @@ function TodoList() {
                         />
                         <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>{todo.text}</span>
                         <button onClick={() => handleEditButtonClick(todo.id, todo.text)}>Edit</button>
-                        <button onClick={() => openModal('delete')}>Delete</button>
+                        <button onClick={() => { setDeleteTodoId(todo.id); openModal('delete'); }}>Delete</button>
                     </li>
                 ))}
             </ul>
