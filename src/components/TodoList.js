@@ -2,6 +2,8 @@
 import React, {useState} from 'react';
 import Modal from 'react-modal';
 
+Modal.setAppElement('#root');
+
 function TodoList() {
     const [todos, setTodos] = useState([
         { id: 1, text: 'Task 1', completed: false },
@@ -17,7 +19,10 @@ function TodoList() {
         setModalType(type);
         setIsModalOpen(true);
      };
-    const closeModal = () => { setIsModalOpen(false); };
+    const closeModal = () => { 
+        setModalType('');
+        setIsModalOpen(false); 
+    };
     const handleModalAction = () => {
         if(modalType === 'add') {
             handleAddTodo();
@@ -31,7 +36,7 @@ function TodoList() {
 
     // todo lis Add
     const handleAddTodo = () => { 
-        const newTodo = { id: Date.now(), text: 'Task 1', completed: false };
+        const newTodo = { id: Date.now(), text: inputValue, completed: false };
         setTodos([...todos, newTodo]);
         setInputValue('');
         closeModal();
@@ -64,7 +69,7 @@ function TodoList() {
     return (
         <>
             <div className="header">
-                <button onClick={openModal('add')}>Add Todo</button>
+                <button onClick={() => openModal('add')}>Add Todo</button>
                 <Modal isOpen={isModalOpen}>
                     {modalType === 'add' && (
                         <>
@@ -88,11 +93,11 @@ function TodoList() {
                         <input 
                             type="checkbox" 
                             checked={todo.completed}
-                            onChange={handleToggleTodo(todo.id)}
+                            onChange={() => handleToggleTodo(todo.id)}
                         />
                         <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>{todo.text}</span>
-                        <button onClick={openModal('edit')}>Edit</button>
-                        <button onClick={openModal('delete')}>Delete</button>
+                        <button onClick={() => openModal('edit')}>Edit</button>
+                        <button onClick={() => openModal('delete')}>Delete</button>
                     </li>
                 ))}
             </ul>
