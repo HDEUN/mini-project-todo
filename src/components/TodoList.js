@@ -27,8 +27,8 @@ function TodoList() {
     const handleModalAction = () => {
         if(modalType === 'add') {
             handleAddTodo();
-        } else if (modalType === 'delete') {
-            handleDeleteTodo();
+        } else if (modalType === 'edit') {
+            handleEditTodo();
         }
     }
 
