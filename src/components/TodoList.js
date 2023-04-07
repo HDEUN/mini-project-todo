@@ -1,6 +1,7 @@
 //목록을 랜더링하고 CRUD 작업을 처리하기 위한 상태 포함
 import React, {useState} from 'react';
 import Modal from 'react-modal';
+import "./ListModal.css";
 
 Modal.setAppElement('#root');
 
@@ -81,15 +82,14 @@ function TodoList() {
         setTodos(todos.filter((todo) => todo.id !== deleteTodoId));
         setDeleteTodoId(null);
         closeModal();
-        console.log(id);
     };
 
 
     return (
-        <>
+        <div className="inner-wrapper">
             <div className="header">
                 <button onClick={() => openModal('add')}>Add Todo</button>
-                <Modal isOpen={isModalOpen}>
+                <Modal isOpen={isModalOpen} className="custom-modal">
                     {modalType === 'add' && (
                         <>
                             <input type="text" value={inputValue} onChange={handleInputChange} />
@@ -126,7 +126,7 @@ function TodoList() {
                     </li>
                 ))}
             </ul>
-        </>
+        </div>
     );
 }
 

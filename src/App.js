@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import MainPage from './pages/MainPage';
 import TodoList from './components/TodoList';
+import './App.css';
 
 function App() {
   return (
-    <div className='App'>
-      {/* 리스트 컴포넌트 랜더링 */}
-      <TodoList />
-    </div>
+    <BrowserRouter>
+      <div className="wrapper">
+        <Routes>
+          <Route exact path='/' element={<MainPage />}></Route>
+          <Route path='/list' element={<TodoList />}></Route>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
