@@ -13,6 +13,7 @@ function TodoList() {
     const [inputValue, setInputValue] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');
+    const [editingTodoId, setEditingTodoId] = useState(null);
 
     // Modal
     const openModal = (type) => { 
@@ -34,7 +35,7 @@ function TodoList() {
     // input
     const handleInputChange = (event) => { setInputValue(event.target.value); };
 
-    // todo lis Add
+    //  Add
     const handleAddTodo = () => { 
         const newTodo = { id: Date.now(), text: inputValue, completed: false };
         setTodos([...todos, newTodo]);
@@ -42,6 +43,7 @@ function TodoList() {
         closeModal();
     }
 
+    // toggle
     const handleToggleTodo = (id) => {
         setTodos(todos.map(todo => {
             if(todo.id === id) {
@@ -51,18 +53,30 @@ function TodoList() {
         }));
     }
 
-    const handleEditTodo = (id, newText) => {
+    // edit
+    const handleEditTodo = () => {
         setTodos(
             todos.map((todo) => {
-                if(todo.id === id) {
-                    return {...todo, text: newText};
+                if(todo.id === editingTodoId) {
+                    return {...todo, text: inputValue};
                 }
                 return todo;
-            }));
+            })
+        );
+        setInputValue('');
+        closeModal();
     }
 
+    const handleEditButtonClick = (id, text) => {
+        setEditingTodoId(id);
+        setInputValue(text);
+        openModal('edit');
+    }
+    
+    // delete
     const handleDeleteTodo = (id) => {
         setTodos(todos.filter((todo) => todo.id !== id));
+        closeModal();
     }
 
 
@@ -83,6 +97,12 @@ function TodoList() {
                             <button onClick={handleModalAction}>Yes</button>
                         </>
                     )}
+                    {modalType === 'edit' && (
+                        <>
+                            <input type='text' value={inputValue} onChange={handleInputChange} />
+                            <button onClick={handleModalAction}>Save</button>
+                        </>
+                    )}
                     <button onClick={closeModal}>Cancle</button>
                 </Modal>
             </div>
@@ -96,7 +116,7 @@ function TodoList() {
                             onChange={() => handleToggleTodo(todo.id)}
                         />
                         <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>{todo.text}</span>
-                        <button onClick={() => openModal('edit')}>Edit</button>
+                        <button onClick={() => handleEditButtonClick(todo.id, todo.text)}>Edit</button>
                         <button onClick={() => openModal('delete')}>Delete</button>
                     </li>
                 ))}
