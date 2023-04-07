@@ -10,10 +10,21 @@ function TodoList() {
     ]);
     const [inputValue, setInputValue] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalType, setModalType] = useState('');
 
     // Modal
-    const openModal = () => { setIsModalOpen(true); };
+    const openModal = (type) => { 
+        setModalType(type);
+        setIsModalOpen(true);
+     };
     const closeModal = () => { setIsModalOpen(false); };
+    const handleModalAction = () => {
+        if(modalType === 'add') {
+            handleAddTodo();
+        } else if (modalType === 'delete') {
+            handleDeleteTodo();
+        }
+    }
 
     // input
     const handleInputChange = (event) => { setInputValue(event.target.value); };
@@ -53,11 +64,21 @@ function TodoList() {
     return (
         <>
             <div className="header">
-                <button onClick={openModal}>Add Todo</button>
+                <button onClick={openModal('add')}>Add Todo</button>
                 <Modal isOpen={isModalOpen}>
-                    <input type="text" value={inputValue} onChange={handleInputChange} />
-                    <button onClick={handleAddTodo}>Add</button>
-                    <button onClick={closeModal}>Close</button>
+                    {modalType === 'add' && (
+                        <>
+                            <input type="text" value={inputValue} onChange={handleInputChange} />
+                            <button onClick={handleModalAction}>Add</button>
+                        </>
+                    )}
+                    {modalType === 'delete' && (
+                        <>
+                            <p>Are you sure you want to delete this todo?</p>
+                            <button onClick={handleModalAction}>Yes</button>
+                        </>
+                    )}
+                    <button onClick={closeModal}>Cancle</button>
                 </Modal>
             </div>
 
@@ -67,11 +88,11 @@ function TodoList() {
                         <input 
                             type="checkbox" 
                             checked={todo.completed}
-                            onChange={() => handleToggleTodo(todo.id)}
+                            onChange={handleToggleTodo(todo.id)}
                         />
                         <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>{todo.text}</span>
-                        <button onClick={() => handleEditTodo(todo.id, prompt('Enter new text:'))}>Edit</button>
-                        <button onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
+                        <button onClick={openModal('edit')}>Edit</button>
+                        <button onClick={openModal('delete')}>Delete</button>
                     </li>
                 ))}
             </ul>
