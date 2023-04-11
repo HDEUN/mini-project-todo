@@ -1,7 +1,7 @@
 //목록을 랜더링하고 CRUD 작업을 처리하기 위한 상태 포함
 import React, {useState} from 'react';
 import Modal from 'react-modal';
-import "./ListModal.css";
+import "./TodoList.css";
 
 Modal.setAppElement('#root');
 
@@ -88,6 +88,8 @@ function TodoList() {
     return (
         <div className="inner-wrapper">
             <div className="header">
+                <h1>ToDoList</h1>
+                <h5>This week</h5>
                 <button onClick={() => openModal('add')}>Add Todo</button>
                 <Modal isOpen={isModalOpen} className="custom-modal">
                     {modalType === 'add' && (

@@ -1,1 +1,7 @@
-/* 목록에 대한 스타일 */
+/* List Style */
+.inner-wrapper {
+    width: 360px;
+    height: 600px;
+    background-color: white;
+    padding: 36px 24px;
+  }
