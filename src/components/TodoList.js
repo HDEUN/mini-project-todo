@@ -9,9 +9,9 @@ Modal.setAppElement('#root');
 
 function TodoList() {
     const [todos, setTodos] = useState([
-        { id: 1, text: 'Task 1', completed: false },
-        { id: 2, text: 'Task 2', completed: true },
-        { id: 3, text: 'Task 3', completed: false }
+        { id: 1, text: 'Mornimg Run', completed: false },
+        { id: 2, text: 'Call Grandma', completed: true },
+        { id: 3, text: 'Go to the gym', completed: false }
     ]);
     const [inputValue, setInputValue] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);

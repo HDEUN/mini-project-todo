@@ -43,10 +43,11 @@
   background: linear-gradient(to right, #FF495F, #FF9254);
   color: white;
   border-radius: 5px;
-  padding: 12px;
+  padding: 8px 12px;
   overflow: hidden;
   cursor: pointer;
   box-shadow: 0px 0px 15px #f95c6f52;
+  line-height: 1.6;
 }
 
 .list-wrapper .TodoList label {
@@ -57,4 +58,23 @@
   background: none;
   float: right;
   margin-left: 12px;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  float: left;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #ccc;
+  border: 1px solid #b7b7b7;
 }
