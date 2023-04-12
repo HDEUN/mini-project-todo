@@ -28,6 +28,10 @@
   cursor: pointer;
 }
 
+.list-wrapper .TodoList .todo {
+  color: white;
+}
+
 .list-wrapper .TodoList .complete {
   text-decoration: line-through;
   color: #b7b7b7;
@@ -41,7 +45,6 @@
 .list-wrapper .TodoList li {
   margin-bottom: 10px;
   background: linear-gradient(to right, #FF495F, #FF9254);
-  color: white;
   border-radius: 5px;
   padding: 8px 12px;
   overflow: hidden;
@@ -57,7 +60,9 @@
 .list-wrapper .TodoList button {
   background: none;
   float: right;
-  margin-left: 12px;
+  margin-left: 6px;
+  font-size: 15px;
+  padding: 4px;
 }
 
 input[type="checkbox"] {
@@ -77,4 +82,8 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked {
   background-color: #ccc;
   border: 1px solid #b7b7b7;
+}
+
+.custom-modal {
+  background-color: white;
 }

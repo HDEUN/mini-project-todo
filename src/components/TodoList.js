@@ -3,6 +3,9 @@ import React, {useState} from 'react';
 import Modal from 'react-modal';
 import "./TodoList.css";
 import { AppTitle } from "../pages/styled";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPencil } from '@fortawesome/free-solid-svg-icons'
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 
 
 Modal.setAppElement('#root');
@@ -86,6 +89,10 @@ function TodoList() {
         closeModal();
     };
 
+    // icons
+    const iconPen = <FontAwesomeIcon icon={faPencil} />
+    const iconCan = <FontAwesomeIcon icon={faTrashCan} />
+
     
     return (
         <div className="inner-wrapper">
@@ -121,7 +128,7 @@ function TodoList() {
                     {todos.map((todo) => (
                         <li 
                             key={todo.id} 
-                            className={todo.completed ? "complete" : ""}
+                            className={todo.completed ? "complete" : "todo"}
                             onClick={() =>handleToggleTodo(todo.id)}
                         >
                             <input 
@@ -130,14 +137,14 @@ function TodoList() {
                                 onChange={() => handleToggleTodo(todo.id)}
                                 id={`${todo.id}`}
                             />
-                            <label htmlFor={`${todo.id}`} className={todo.completed ? "complete" : ""}>{todo.text}</label>
+                            <label htmlFor={`${todo.id}`} className={todo.completed ? "complete" : "todo"}>{todo.text}</label>
                             <button onClick={() => { setDeleteTodoId(todo.id); openModal('delete'); }}
-                             className={todo.completed ? "complete" : ""}>
-                                Delete
+                             className={todo.completed ? "complete" : "todo"}>
+                                {iconCan}
                             </button>
                             <button onClick={() => handleEditButtonClick(todo.id, todo.text)}
-                             className={todo.completed ? "complete" : ""}>
-                                Edit
+                             className={todo.completed ? "complete" : "todo"}>
+                                {iconPen}
                             </button>
                         </li>
                     ))}
