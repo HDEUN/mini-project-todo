@@ -17,7 +17,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+	/* font: inherit; */
 	vertical-align: baseline;
 }
 h1, h2, h3, h4, h5, h6, p, b {
@@ -34,11 +34,17 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 	font-size: 15px;
+	color: #333;
 }
 ol, ul {
 	list-style: none;
 }
+button {
+	background: inherit ; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer
+}
 
+
+/* style */
 .wrapper {
 	width: 100vw;
 	height: 100vh;

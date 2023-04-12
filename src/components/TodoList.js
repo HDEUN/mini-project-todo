@@ -2,6 +2,8 @@
 import React, {useState} from 'react';
 import Modal from 'react-modal';
 import "./TodoList.css";
+import { AppTitle } from "../pages/styled";
+
 
 Modal.setAppElement('#root');
 
@@ -84,50 +86,63 @@ function TodoList() {
         closeModal();
     };
 
-
+    
     return (
         <div className="inner-wrapper">
-            <div className="header">
-                <h1>ToDoList</h1>
-                <h5>This week</h5>
-                <button onClick={() => openModal('add')}>Add Todo</button>
-                <Modal isOpen={isModalOpen} className="custom-modal">
-                    {modalType === 'add' && (
-                        <>
-                            <input type="text" value={inputValue} onChange={handleInputChange} />
-                            <button onClick={handleModalAction}>Add</button>
-                        </>
-                    )}
-                    {modalType === 'delete' && (
-                        <>
-                            <p>Are you sure you want to delete this todo?</p>
-                            <button onClick={handleModalAction}>Yes</button>
-                        </>
-                    )}
-                    {modalType === 'edit' && (
-                        <>
-                            <input type='text' value={inputValue} onChange={handleInputChange} />
-                            <button onClick={handleModalAction}>Save</button>
-                        </>
-                    )}
-                    <button onClick={closeModal}>Cancle</button>
-                </Modal>
-            </div>
+            <div className='list-wrapper'>
+                <div className="header">
+                    <AppTitle fs24>ToDoList</AppTitle>
+                    <h5>This week</h5>
+                    <button onClick={() => openModal('add')}>Add Todo</button>
+                    <Modal isOpen={isModalOpen} className="custom-modal">
+                        {modalType === 'add' && (
+                            <>
+                                <input type="text" value={inputValue} onChange={handleInputChange} />
+                                <button onClick={handleModalAction}>Add</button>
+                            </>
+                        )}
+                        {modalType === 'delete' && (
+                            <>
+                                <p>Are you sure you want to delete this todo?</p>
+                                <button onClick={handleModalAction}>Yes</button>
+                            </>
+                        )}
+                        {modalType === 'edit' && (
+                            <>
+                                <input type='text' value={inputValue} onChange={handleInputChange} />
+                                <button onClick={handleModalAction}>Save</button>
+                            </>
+                        )}
+                        <button onClick={closeModal}>Cancle</button>
+                    </Modal>
+                </div>
 
-            <ul className='TodoList'>
-                {todos.map((todo) => (
-                    <li key={todo.id}>
-                        <input 
-                            type="checkbox" 
-                            checked={todo.completed}
-                            onChange={() => handleToggleTodo(todo.id)}
-                        />
-                        <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>{todo.text}</span>
-                        <button onClick={() => handleEditButtonClick(todo.id, todo.text)}>Edit</button>
-                        <button onClick={() => { setDeleteTodoId(todo.id); openModal('delete'); }}>Delete</button>
-                    </li>
-                ))}
-            </ul>
+                <ul className='TodoList'>
+                    {todos.map((todo) => (
+                        <li 
+                            key={todo.id} 
+                            className={todo.completed ? "complete" : ""}
+                            onClick={() =>handleToggleTodo(todo.id)}
+                        >
+                            <input 
+                                type="checkbox" 
+                                checked={todo.completed}
+                                onChange={() => handleToggleTodo(todo.id)}
+                                id={`${todo.id}`}
+                            />
+                            <label htmlFor={`${todo.id}`} className={todo.completed ? "complete" : ""}>{todo.text}</label>
+                            <button onClick={() => { setDeleteTodoId(todo.id); openModal('delete'); }}
+                             className={todo.completed ? "complete" : ""}>
+                                Delete
+                            </button>
+                            <button onClick={() => handleEditButtonClick(todo.id, todo.text)}
+                             className={todo.completed ? "complete" : ""}>
+                                Edit
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }
